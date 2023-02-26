@@ -1,13 +1,32 @@
 import express, { Express, Request, Response } from 'express';
+import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import router from '../routes';
+import SwaggerUi from 'swagger-ui-express';
+import mongoose from 'mongoose';
 
 const server: Express = express();
+dotenv.config();
+
+// Swagger
+server.use(
+    '/docs',
+    SwaggerUi.serve,
+    SwaggerUi.setup(undefined, {
+        swaggerOptions: {
+            url: '/swagger.json',
+            explorer: true,
+        },
+    })
+);
 
 server.use('/api', router);
 
 server.use(express.static('public'));
+
+const mongodbConnection: string = process.env.MONGO_DB || '';
+mongoose.connect('mongodb://127.0.0.1:27017/codeverification');
 
 server.use(helmet());
 server.use(cors());

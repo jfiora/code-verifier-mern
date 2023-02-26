@@ -1,5 +1,6 @@
-import express, { Request, Response } from "express";
-import helloRouter from "./HelloRouter";
+import express, { Request, Response } from 'express';
+import helloRouter from './HelloRouter';
+import usersRouter from './UserRouter';
 
 let server = express();
 let rootRouter = express.Router();
@@ -8,7 +9,8 @@ rootRouter.get('/', (req: Request, res: Response) => {
     res.send('Hello');
 });
 
-server.use('/', rootRouter);
-server.use('/hello', helloRouter);
+server.use('/', rootRouter); // -> /api/
+server.use('/hello', helloRouter); // -> /api/hello
+server.use('/users', usersRouter); // -> /api/users
 
 export default server;
