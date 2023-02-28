@@ -1,6 +1,7 @@
 import { userEntity } from '../entities/User.entity';
 
 import { LogSuccess, LogError } from '../../utils/logger';
+import { IUser } from '../interfaces/IUser.interface';
 
 /**
  * Method to obtain all Users from Collection Users
@@ -47,5 +48,14 @@ export const updateUser = async (id: string, user: any) => {
         return await userModel.findByIdAndUpdate(id, user);
     } catch (error) {
         LogError(`[ORM Error]: Couldn't update user ${id}: ${error}`);
+    }
+};
+
+export const registerUser = async (user: IUser): Promise<any | undefined> => {
+    try {
+        let userModel = userEntity();
+        return await userModel.create(user);
+    } catch (error) {
+        LogError(`[ORM Error]: Couldn't create user: ${error}`);
     }
 };

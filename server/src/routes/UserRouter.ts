@@ -1,6 +1,7 @@
 import { LogInfo } from '../utils/logger';
 import express, { query, Request, Response } from 'express';
 import { UserController } from '../controller/UsersController';
+import { IUser } from '../domain/interfaces/IUser.interface';
 
 let usersRouter = express.Router();
 
