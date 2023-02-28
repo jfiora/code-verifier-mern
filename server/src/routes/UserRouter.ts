@@ -12,7 +12,7 @@ usersRouter
 
         const controller: UserController = new UserController();
         const response: any = await controller.getUsers(id);
-        return res.send(response);
+        return res.status(200).send(response);
     })
     .delete(async (req: Request, res: Response) => {
         let id: any = req?.query?.id;
@@ -20,12 +20,12 @@ usersRouter
 
         const controller: UserController = new UserController();
         const response: any = await controller.deleteUserById(id);
-        return res.send(response);
+        return res.status(204).send(response);
     })
     .post(async (req: Request, res: Response) => {
-        let name: any = req?.query?.name;
-        let email: any = req?.query?.email;
-        let age: any = req?.query?.age;
+        let name: any = req?.body?.name;
+        let email: any = req?.body?.email;
+        let age: any = req?.body?.age;
         let user = {
             name: name,
             email: email,
@@ -34,14 +34,14 @@ usersRouter
 
         const controller: UserController = new UserController();
         const response: any = await controller.createUser(user);
-        return res.send(response);
+        return res.status(201).send(response);
     })
     .put(async (req: Request, res: Response) => {
         let id: any = req?.query?.id;
         LogInfo(`Query Param: ${id}`);
-        let name: any = req?.query?.name;
-        let email: any = req?.query?.email;
-        let age: any = req?.query?.age;
+        let name: any = req?.body?.name;
+        let email: any = req?.body?.email;
+        let age: any = req?.body?.age;
         let user = {
             name: name,
             email: email,
@@ -50,7 +50,7 @@ usersRouter
 
         const controller: UserController = new UserController();
         const response: any = await controller.updateUser(id, user);
-        return res.send(response);
+        return res.status(204).send(response);
     });
 
 export default usersRouter;
