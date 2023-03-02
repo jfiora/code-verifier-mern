@@ -55,25 +55,6 @@ export class UserController implements IUserController {
         return response;
     }
 
-    @Post('/')
-    /**
-     * Endpoint to create an user
-     * @param {user} user
-     * @returns Created user
-     */
-    public async createUser(@Query() user?: any): Promise<any> {
-        let response: any = {};
-
-        await createUser(user).then(() => {
-            LogSuccess(`[/api/users] Creating User: ${user}`);
-            response = {
-                message: `User created successfully: ${user.name}`,
-            };
-        });
-
-        return response;
-    }
-
     @Put('/')
     /**
      * Endpoint to update an user

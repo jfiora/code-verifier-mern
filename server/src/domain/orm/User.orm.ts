@@ -50,12 +50,3 @@ export const updateUser = async (id: string, user: any) => {
         LogError(`[ORM Error]: Couldn't update user ${id}: ${error}`);
     }
 };
-
-export const registerUser = async (user: IUser): Promise<any | undefined> => {
-    try {
-        let userModel = userEntity();
-        return await userModel.create(user);
-    } catch (error) {
-        LogError(`[ORM Error]: Couldn't create user: ${error}`);
-    }
-};
