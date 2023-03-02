@@ -2,7 +2,9 @@ import { LogInfo } from '../utils/logger';
 import express, { query, Request, Response } from 'express';
 import { UserController } from '../controller/UsersController';
 import { IUser } from '../domain/interfaces/IUser.interface';
+import bodyParser = require('body-parser');
 
+let jsonParser = bodyParser.json();
 let usersRouter = express.Router();
 
 usersRouter
@@ -23,7 +25,7 @@ usersRouter
         const response: any = await controller.deleteUserById(id);
         return res.status(204).send(response);
     })
-    .post(async (req: Request, res: Response) => {
+    .post(jsonParser, async (req: Request, res: Response) => {
         let name: any = req?.body?.name;
         let email: any = req?.body?.email;
         let age: any = req?.body?.age;
@@ -37,7 +39,7 @@ usersRouter
         const response: any = await controller.createUser(user);
         return res.status(201).send(response);
     })
-    .put(async (req: Request, res: Response) => {
+    .put(jsonParser, async (req: Request, res: Response) => {
         let id: any = req?.query?.id;
         LogInfo(`Query Param: ${id}`);
         let name: any = req?.body?.name;
