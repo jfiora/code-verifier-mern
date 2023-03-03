@@ -3,21 +3,24 @@ import express, { query, Request, Response } from 'express';
 import { UserController } from '../controller/UsersController';
 import { IUser } from '../domain/interfaces/IUser.interface';
 import bodyParser = require('body-parser');
+import { verifyToken } from '../middlewares/verifyToken.middleware';
 
 let jsonParser = bodyParser.json();
 let usersRouter = express.Router();
 
 usersRouter
     .route('/')
-    .get(async (req: Request, res: Response) => {
+    .get(verifyToken, async (req: Request, res: Response) => {
         let id: any = req?.query?.id;
         LogInfo(`Query Param: ${id}`);
+        let page: any = req?.query?.page || 1;
+        let limit: any = req?.query?.limit || 10;
 
         const controller: UserController = new UserController();
-        const response: any = await controller.getUsers(id);
+        const response: any = await controller.getUsers(page, limit, id);
         return res.status(200).send(response);
     })
-    .delete(async (req: Request, res: Response) => {
+    .delete(verifyToken, async (req: Request, res: Response) => {
         let id: any = req?.query?.id;
         LogInfo(`Query Param: ${id}`);
 
@@ -25,7 +28,7 @@ usersRouter
         const response: any = await controller.deleteUserById(id);
         return res.status(204).send(response);
     })
-    .put(jsonParser, async (req: Request, res: Response) => {
+    .put(jsonParser, verifyToken, async (req: Request, res: Response) => {
         let id: any = req?.query?.id;
         LogInfo(`Query Param: ${id}`);
         let name: any = req?.body?.name;

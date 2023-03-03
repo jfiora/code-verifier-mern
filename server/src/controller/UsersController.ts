@@ -15,18 +15,24 @@ import {
 export class UserController implements IUserController {
     /**
      * Enpoint to retrieve the Users or retrieve an specific user by id
+     * @param {number} page optional
+     * @param {number} limit optional
      * @param {string} id optional
      * @returns All Users or user by id
      */
     @Get('/')
-    public async getUsers(@Query() id?: string): Promise<any> {
+    public async getUsers(
+        @Query() page: number,
+        @Query() limit: number,
+        @Query() id?: string
+    ): Promise<any> {
         let response: any = {};
         if (id) {
             LogSuccess(`[/api/users/:id] Get User by ID: ${id}`);
             response = await getUserById(id);
         } else {
             LogSuccess('[/api/users] Get All Users Request');
-            response = await getAllUsers();
+            response = await getAllUsers(page, limit);
         }
         return response;
     }
