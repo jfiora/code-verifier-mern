@@ -6,7 +6,6 @@ import {
     getAllUsers,
     getUserById,
     deleteUserById,
-    createUser,
     updateUser,
 } from '../domain/orm/User.orm';
 

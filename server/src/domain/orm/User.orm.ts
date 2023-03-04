@@ -58,15 +58,6 @@ export const deleteUserById = async (id: string): Promise<any | undefined> => {
     }
 };
 
-export const createUser = async (user: any): Promise<any | undefined> => {
-    try {
-        let userModel = userEntity();
-        return await userModel.create(user);
-    } catch (error) {
-        LogError(`[ORM Error]: Couldn't create user: ${error}`);
-    }
-};
-
 export const updateUser = async (id: string, user: any) => {
     try {
         let userModel = userEntity();
