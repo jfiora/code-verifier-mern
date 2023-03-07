@@ -24,6 +24,7 @@ authRouter
                 email: email,
                 age: age,
                 password: hashedPassword,
+                katas: [],
             };
             const controller: AuthController = new AuthController();
             const response: any = await controller.registerUser(newUser);

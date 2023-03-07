@@ -3,6 +3,9 @@ import { userEntity } from '../entities/User.entity';
 import { LogSuccess, LogError } from '../../utils/logger';
 import { IUser } from '../interfaces/IUser.interface';
 import { UserResponse } from '../types/UsersResponse.type';
+import { kataEntity } from '../entities/Kata.entity';
+import { IKata } from '../interfaces/IKata.interface';
+import mongoose from 'mongoose';
 
 /**
  * Method to obtain all Users from Collection Users
@@ -64,5 +67,45 @@ export const updateUser = async (id: string, user: any) => {
         return await userModel.findByIdAndUpdate(id, user);
     } catch (error) {
         LogError(`[ORM Error]: Couldn't update user ${id}: ${error}`);
+    }
+};
+
+export const getKatasFromUser = async (
+    page: number,
+    limit: number,
+    id: string
+): Promise<any[] | undefined> => {
+    try {
+        let userModel = userEntity();
+        let katasModel = kataEntity();
+        let katasFound: IKata[] = [];
+        let response: any = {};
+
+        await userModel
+            .findById(id)
+            .then(async (user: IUser) => {
+                response.user = user.email;
+
+                let objectIds: mongoose.Types.ObjectId[] = [];
+
+                user.katas.forEach((kataId: string) => {
+                    let objectId = new mongoose.Types.ObjectId(kataId);
+                    objectIds.push(objectId);
+                });
+
+                await katasModel
+                    .find({ _id: { $in: user.katas } })
+                    .then((katas: IKata[]) => {
+                        katasFound = katas;
+                    });
+            })
+            .catch((error) => {
+                LogError(`[ORM Error]: Getting User: ${error}`);
+            });
+        response.katas = katasFound;
+
+        return response;
+    } catch (error) {
+        LogError(`[ORM Error]: Getting All Katas from User: ${error}`);
     }
 };

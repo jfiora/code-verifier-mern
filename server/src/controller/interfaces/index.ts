@@ -4,6 +4,7 @@ import { IKata } from 'src/domain/interfaces/IKata.interface';
 
 export interface IUserController {
     getUsers(page: number, limit: number, id?: string): Promise<any>;
+    getKatas(page: number, limit: number, id?: string): Promise<any>;
     deleteUserById(id?: string): Promise<any>;
     updateUser(id: string, user: any): Promise<any>;
 }

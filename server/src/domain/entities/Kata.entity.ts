@@ -7,10 +7,10 @@ export const kataEntity = () => {
         description: { type: String, required: true },
         level: { type: String, required: true },
         attempts: { type: Number, required: true },
-        starts: { type: Number, required: true },
+        stars: { type: Number, required: true },
         creator: { type: String, required: true },
         solution: { type: String, required: true },
         participants: { type: [], required: true },
     });
-    return mongoose.models.Users || mongoose.model<IKata>('Katas', kataSchema);
+    return mongoose.models.Katas || mongoose.model<IKata>('Katas', kataSchema);
 };

@@ -7,6 +7,7 @@ import {
     getUserById,
     deleteUserById,
     updateUser,
+    getKatasFromUser,
 } from '../domain/orm/User.orm';
 
 @Route('/api/users')
@@ -78,6 +79,25 @@ export class UserController implements IUserController {
             });
         } else {
             LogError('[/api/users] Updating User by ID Request Without ID');
+            response = {
+                message: 'Invalid or non existing ID. Provide a correct one',
+            };
+        }
+        return response;
+    }
+
+    @Get('/katas')
+    public async getKatas(
+        @Query() page: number,
+        @Query() limit: number,
+        @Query() id: string
+    ): Promise<any> {
+        let response: any = {};
+        if (id) {
+            LogSuccess('[/api/users/katas] Getting all katas from User by ID');
+            response = await getKatasFromUser(page, limit, id);
+        } else {
+            LogSuccess('[/api/users/katas] Get all katas from User');
             response = {
                 message: 'Invalid or non existing ID. Provide a correct one',
             };

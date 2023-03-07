@@ -9,7 +9,7 @@ export interface IKata {
     description: string;
     level: KataLevel;
     attempts: number;
-    starts: number;
+    stars: number;
     creator: string;
     solution: string;
     participants: string[];

@@ -20,7 +20,6 @@ export const getAllKatas = async (
         };
         await kataModel
             .find({ isDeleted: false })
-            .select('name email age')
             .limit(limit)
             .skip((page - 1) * limit)
             .exec()
@@ -42,7 +41,7 @@ export const getAllKatas = async (
 export const getKataById = async (id: string): Promise<any | undefined> => {
     try {
         let kataModel = kataEntity();
-        return await kataModel.findById(id).select('name email age');
+        return await kataModel.findById(id);
     } catch (error) {
         LogError(`[ORM Error]: Getting Kata by ID: ${error}`);
     }
