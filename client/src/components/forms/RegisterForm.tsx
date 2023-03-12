@@ -11,7 +11,7 @@ const RegisterForm = () => {
         email: '',
         password: '',
         confirm: '',
-        age: '',
+        age: 18,
     };
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
@@ -29,7 +29,7 @@ const RegisterForm = () => {
                     'Both password need to be the same'
                 ),
             })
-            .required('Confirm password is required'),
+            .required('Confirm password1 is required'),
         age: Yup.number()
             .required('Age is required')
             .min(18, 'Age must be at least 18'),
@@ -38,6 +38,39 @@ const RegisterForm = () => {
     return (
         <div>
             <h4>register form</h4>
+            <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={async (values) => {
+                    register(
+                        values.name,
+                        values.email,
+                        values.password,
+                        values.age
+                    )
+                        .then((res: AxiosResponse) => {
+                            if (res.status === 200) {
+                                if (res.data.token) {
+                                    sessionStorage.setItem(
+                                        'sessionToken',
+                                        res.data.token
+                                    );
+                                } else {
+                                    throw new Error(
+                                        'Error Generating Login Token'
+                                    );
+                                }
+                            } else {
+                                throw new Error('Invalid Credentials');
+                            }
+                        })
+                        .catch((err) => {
+                            console.error(
+                                `[LOGIN ERROR] Something went wrong: ${err}`
+                            );
+                        });
+                }}
+            ></Formik>
         </div>
     );
 };
