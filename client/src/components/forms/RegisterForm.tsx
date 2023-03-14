@@ -24,10 +24,6 @@ const RegisterForm = () => {
         confirm: Yup.string()
             .when('password', {
                 is: (val: string) => (val && val.length > 0 ? true : false),
-                then: Yup.string().oneOf(
-                    [Yup.ref('password')],
-                    'Both password need to be the same'
-                ),
             })
             .required('Confirm password1 is required'),
         age: Yup.number()

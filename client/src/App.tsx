@@ -26,25 +26,31 @@ function App() {
                             <Link to='/'>Home</Link>
                         </li>
                         <li>
-                            <Link to='/login'>Home</Link>
+                            <Link to='/login'>Login</Link>
                         </li>
                         <li>
-                            <Link to='/register'>Home</Link>
+                            <Link to='/register'>Register</Link>
                         </li>
                         <li>
-                            <Link to='/katas'>Home</Link>
+                            <Link to='/katas'>Katas</Link>
                         </li>
                     </ul>
                 </nav>
+                <Routes>
+                    <Route path='/' element={<HomePage />}></Route>
+                    <Route path='/login' element={<LoginPage />}></Route>
+                    <Route path='/register' element={<RegisterPage />}></Route>
+                    <Route path='/katas' element={<KatasPage />}></Route>
+                    <Route
+                        path='/katas/:id'
+                        element={<KatasDetailPage />}
+                    ></Route>
+                    <Route
+                        path='*'
+                        element={<Navigate to='/' replace />}
+                    ></Route>
+                </Routes>
             </Router>
-            <Routes>
-                <Route path='/' element={<HomePage />}></Route>
-                <Route path='/login' element={<LoginPage />}></Route>
-                <Route path='/register' element={<RegisterPage />}></Route>
-                <Route path='/katas' element={<KatasPage />}></Route>
-                <Route path='/katas/:id' element={<KatasDetailPage />}></Route>
-                <Route path='*' element={<Navigate to='/' replace />}></Route>
-            </Routes>
         </div>
     );
 }

@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { login } from '../../services/authService';
 import { AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const loginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
@@ -16,6 +17,8 @@ const LoginForm = () => {
         password: '',
     };
 
+    let navigate = useNavigate();
+
     return (
         <div>
             <h4>Login Form</h4>
@@ -24,13 +27,16 @@ const LoginForm = () => {
                 validationSchema={loginSchema}
                 onSubmit={async (values) => {
                     login(values.email, values.password)
-                        .then((res: AxiosResponse) => {
+                        .then(async (res: AxiosResponse) => {
+                            console.log(values);
+
                             if (res.status === 200) {
                                 if (res.data.token) {
-                                    sessionStorage.setItem(
+                                    await sessionStorage.setItem(
                                         'sessionToken',
                                         res.data.token
                                     );
+                                    navigate('/');
                                 } else {
                                     throw new Error(
                                         'Error Generating Login Token'
