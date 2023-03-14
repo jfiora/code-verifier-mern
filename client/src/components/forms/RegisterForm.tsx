@@ -70,7 +70,53 @@ const RegisterForm = () => {
                             );
                         });
                 }}
-            ></Formik>
+            >
+                {({
+                    values,
+                    touched,
+                    errors,
+                    isSubmitting,
+                    handleChange,
+                    handleBlur,
+                }) => (
+                    <Form>
+                        <label htmlFor='name'>Name</label>
+                        <Field name='name' type='text' placeholder='name' />
+                        <ErrorMessage name='name' component='div' />
+
+                        <label htmlFor='email'>Email</label>
+                        <Field
+                            name='email'
+                            type='email'
+                            placeholder='example@email.com'
+                        />
+                        <ErrorMessage name='email' component='div' />
+
+                        <label htmlFor='password'>Password</label>
+                        <Field
+                            name='password'
+                            type='password'
+                            placeholder='Password'
+                        />
+                        <ErrorMessage name='password' component='div' />
+
+                        <label htmlFor='confirm'>Confirm Password</label>
+                        <Field
+                            name='confirm'
+                            type='password'
+                            placeholder='Confirm password'
+                        />
+                        <ErrorMessage name='confirm' component='div' />
+
+                        <label htmlFor='age'>Age</label>
+                        <Field name='age' type='number' placeholder='age' />
+                        <ErrorMessage name='age' component='div' />
+
+                        <button type='submit'>Login</button>
+                        {isSubmitting ? <p>Checking credentials...</p> : null}
+                    </Form>
+                )}
+            </Formik>
         </div>
     );
 };
