@@ -7,6 +7,7 @@ import SwaggerUi from 'swagger-ui-express';
 import mongoose from 'mongoose';
 
 const server: Express = express();
+server.use(cors());
 dotenv.config();
 
 // Swagger
