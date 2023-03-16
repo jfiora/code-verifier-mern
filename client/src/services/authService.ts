@@ -10,9 +10,9 @@ export const login = (email: string, password: string) => {
 };
 
 export const register = (
+    name: string,
     email: string,
     password: string,
-    name: string,
     age: number
 ) => {
     let body = {

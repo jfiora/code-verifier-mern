@@ -28,10 +28,11 @@ const LoginForm = () => {
                 onSubmit={async (values) => {
                     login(values.email, values.password)
                         .then(async (res: AxiosResponse) => {
-                            console.log(values);
-
                             if (res.status === 200) {
-                                if (res.data.token) {
+                                if (
+                                    res.data.token &&
+                                    res.data.token !== 'INVALID'
+                                ) {
                                     await sessionStorage.setItem(
                                         'sessionToken',
                                         res.data.token

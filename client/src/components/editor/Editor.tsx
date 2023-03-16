@@ -7,16 +7,8 @@ interface EditorProps {
 }
 
 export const Editor = ({ language, children }: EditorProps) => {
-    const codeExample = `
-        (function someDemo() {
-            let test = "Hello World!";
-            console.log(test);
-        })();
-        return () => <App />;
-    `;
-
     return (
-        <Highlight {...defaultProps} code={codeExample} language='jsx'>
+        <Highlight {...defaultProps} code={children} language='jsx'>
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
                 <pre className={className} style={style}>
                     {tokens.map((line, i) => (

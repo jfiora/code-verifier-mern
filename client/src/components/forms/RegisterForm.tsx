@@ -22,10 +22,8 @@ const RegisterForm = () => {
             .required('Password is required')
             .min(8, 'Password must be at least 8 characters'),
         confirm: Yup.string()
-            .when('password', {
-                is: (val: string) => (val && val.length > 0 ? true : false),
-            })
-            .required('Confirm password1 is required'),
+            .required('Please confirm your password')
+            .oneOf([Yup.ref('password')], 'Passwords do not match'),
         age: Yup.number()
             .required('Age is required')
             .min(18, 'Age must be at least 18'),
@@ -108,7 +106,7 @@ const RegisterForm = () => {
                         <Field name='age' type='number' placeholder='age' />
                         <ErrorMessage name='age' component='div' />
 
-                        <button type='submit'>Login</button>
+                        <button type='submit'>Register</button>
                         {isSubmitting ? <p>Checking credentials...</p> : null}
                     </Form>
                 )}
