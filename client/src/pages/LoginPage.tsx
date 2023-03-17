@@ -1,11 +1,12 @@
 import React from 'react';
 import LoginForm from '../components/forms/LoginForm';
+import SignIn from '../components/forms/LoginMaterialUi';
 
 const LoginPage = () => {
     return (
         <div>
-            <h1>Login Page</h1>
-            <LoginForm />
+            {/* <LoginForm /> */}
+            <SignIn />
         </div>
     );
 };
