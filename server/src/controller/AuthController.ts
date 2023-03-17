@@ -36,10 +36,17 @@ export class AuthController implements IAuthController {
         if (auth) {
             LogSuccess(`[/api/auth/login] Log in User: ${auth.email}`);
             let data = await loginUser(auth);
-            response = {
-                message: `Welcome, ${data.user.name}!`,
-                token: data.token,
-            };
+            if (!data) {
+                response = {
+                    message: 'Invalid Auth',
+                    token: 'INVALID',
+                };
+            } else {
+                response = {
+                    message: `Welcome, ${data.user.name}!`,
+                    token: data.token,
+                };
+            }
         } else {
             LogError('[/api/auth/login] Login needs a proper auth');
             response = {

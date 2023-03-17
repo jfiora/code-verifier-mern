@@ -1,11 +1,8 @@
 import React from 'react';
+import { Dashboard } from '../components/dashboard/Dashboard';
 
 const HomePage = () => {
-    return (
-        <div>
-            <h1>Home Page</h1>
-        </div>
-    );
+    return <Dashboard />;
 };
 
 export default HomePage;
