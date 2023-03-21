@@ -20,6 +20,8 @@ import Typography from '@mui/material/Typography';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import { MenuItems } from './MenuItems';
+import { NewEditor } from '../editor/NewEditor';
+import TipTapEditor from '../editor/TipTapEditor';
 
 const drawerWidth: number = 240;
 interface AppBarProps extends MuiAppBarProps {
@@ -172,7 +174,9 @@ export const Dashboard = () => {
                                     flexDirection: 'column',
                                     height: 240,
                                 }}
-                            ></Paper>
+                            >
+                                <NewEditor />
+                            </Paper>
                         </Grid>
                     </Container>
                 </Box>
